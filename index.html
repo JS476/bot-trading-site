@@ -12,6 +12,7 @@
       margin: 0;
       padding: 0;
       color: #1a2a3a;
+      line-height: 1.6;
     }
     .container {
       max-width: 800px;
@@ -25,6 +26,7 @@
       align-items: center;
       padding-bottom: 20px;
       border-bottom: 1px solid #e0e4eb;
+      flex-wrap: wrap;
     }
     .logo {
       font-size: 24px;
@@ -43,39 +45,54 @@
     .nav a:hover {
       color: #f0c040;
     }
-    /* PERFORMANCE */
-    .performance {
-      text-align: center;
-      padding: 40px 0;
+    /* SECTIONS */
+    section {
+      margin: 60px 0;
+      scroll-margin-top: 80px;
     }
-    .performance .gain {
+    section h2 {
+      font-size: 28px;
+      border-bottom: 2px solid #f0c040;
+      padding-bottom: 10px;
+      margin-bottom: 30px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 30px;
+      margin: 20px 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      border: 1px solid #eef2f7;
+    }
+    .card h3, .card h4 {
+      margin-top: 0;
+    }
+    .card ul {
+      padding-left: 20px;
+    }
+    .card li {
+      margin: 8px 0;
+    }
+    /* PERFORMANCE */
+    .performance-block {
+      text-align: center;
+      padding: 20px 0;
+    }
+    .performance-block .gain {
       font-size: 64px;
       font-weight: 700;
       color: #2e7d32;
       margin: 10px 0;
     }
-    .performance .gain .italique {
+    .performance-block .gain .italique {
       font-style: italic;
       font-size: 20px;
       color: #555;
       font-weight: 400;
     }
-    .performance .sub {
+    .performance-block .sub {
       font-size: 18px;
       color: #555;
-    }
-    /* COMPARATEUR */
-    .comparator {
-      background: #fff;
-      border-radius: 16px;
-      padding: 30px;
-      margin: 30px 0;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      border: 1px solid #eef2f7;
-    }
-    .comparator h3 {
-      margin-top: 0;
-      font-weight: 600;
     }
     .bar-container {
       display: flex;
@@ -117,26 +134,17 @@
       margin: 20px 0;
       border: none;
       cursor: pointer;
+      text-align: center;
     }
     .btn:hover {
       background: #e0b030;
     }
-    /* FRAIS */
-    .frais {
-      background: #fff;
-      border-radius: 16px;
-      padding: 20px 30px;
-      margin: 30px 0;
-      border: 1px solid #eef2f7;
+    .btn-secondary {
+      background: #1a2a3a;
+      color: #fff;
     }
-    .frais h3 {
-      margin-top: 0;
-    }
-    .frais ul {
-      padding-left: 20px;
-    }
-    .frais li {
-      margin: 8px 0;
+    .btn-secondary:hover {
+      background: #2a3a4a;
     }
     /* LIENS */
     .links {
@@ -160,16 +168,22 @@
       border-top: 1px solid #e0e4eb;
       padding-top: 20px;
     }
+    @media (max-width: 600px) {
+      .header { flex-direction: column; align-items: flex-start; gap: 15px; }
+      .nav a { margin-left: 0; margin-right: 20px; }
+      .performance-block .gain { font-size: 40px; }
+    }
   </style>
 </head>
 <body>
 
 <div class="container">
 
-  <!-- EN-TÊTE -->
+  <!-- ==================== EN-TÊTE ==================== -->
   <div class="header">
     <div class="logo">📈 Bot<span>V2</span></div>
     <div class="nav">
+      <a href="#accueil">Accueil</a>
       <a href="#performance">Performance</a>
       <a href="#investir">Investir</a>
       <a href="#transparence">Transparence</a>
@@ -177,42 +191,117 @@
     </div>
   </div>
 
-  <!-- PERFORMANCE -->
-  <div id="performance" class="performance">
-    <div class="gain">
-      +8,2% <span class="italique">(Livret A 2026 : 3%)</span>
+  <!-- ==================== SECTION ACCUEIL ==================== -->
+  <section id="accueil">
+    <div class="performance-block">
+      <div class="gain" id="real-gain">
+        0,0% <span class="italique">(Livret A 2026 : 3%)</span>
+      </div>
+      <div class="sub">📈 Performance du bot en temps réel</div>
+      <div style="font-size: 14px; color: #888; margin-top: 10px;">
+        Dernière mise à jour : <span id="update-time">--</span>
+      </div>
     </div>
-    <div class="sub">📈 Performance du bot sur le dernier mois</div>
-  </div>
 
-  <!-- COMPARATEUR -->
-  <div class="comparator">
-    <h3>📊 Comparaison des performances</h3>
-    <div class="bar-container">
-      <div class="bar bot">Bot V2 : +8,2%</div>
-      <div class="bar livret">Livret A : +3,0%</div>
+    <div class="card">
+      <h3>📊 Comparaison des performances</h3>
+      <div class="bar-container">
+        <div class="bar bot">Bot V2 : <span id="bar-gain">0,0</span>%</div>
+        <div class="bar livret">Livret A : +3,0%</div>
+      </div>
+      <div class="highlight" id="comparison-text">
+        🔥 Le bot surpasse le Livret A de <strong>+0,0 points</strong>
+      </div>
     </div>
-    <div class="highlight">🔥 Le bot surpasse le Livret A de <strong>+5,2 points</strong></div>
-  </div>
+  </section>
 
-  <!-- BOUTON INVESTIR -->
-  <div id="investir" style="text-align: center;">
-    <a href="#" class="btn">💼 Investir dès 100 €</a>
-    <p style="font-size: 14px; color: #888;">Sans engagement, retrait mensuel</p>
-  </div>
+  <!-- ==================== SECTION PERFORMANCE ==================== -->
+  <section id="performance">
+    <h2>📈 Performance et stratégie</h2>
 
-  <!-- FRAIS ET TRANSPARENCE -->
-  <div id="transparence" class="frais">
-    <h3>🔍 Transparence</h3>
-    <ul>
-      <li><strong>Abonnement :</strong> 5 € / mois</li>
-      <li><strong>Commission :</strong> 20 % sur les gains</li>
-      <li><strong>Retrait :</strong> 1 fois par mois</li>
-      <li><strong>Investissement minimum :</strong> 100 €</li>
-    </ul>
-  </div>
+    <div class="card">
+      <h3>📊 Performances en temps réel</h3>
+      <p>Le bot V2 affiche actuellement une performance de <strong id="perf-gain">0,0%</strong>.</p>
+      <p>Ces résultats sont basés sur des données réelles et des trades exécutés sur des comptes de démonstration.</p>
+      <p><em>⚠️ Les performances passées ne préjugent pas des performances futures.</em></p>
+    </div>
 
-  <!-- LIENS -->
+    <div class="card">
+      <h3>🤖 Comment fonctionne le bot</h3>
+      <p>Le bot utilise une combinaison de <strong>6 stratégies éprouvées</strong> (RSI + Bollinger, MACD + RSI, Croisement de moyennes mobiles, Breakout, Mean Reversion, Momentum) appliquées à <strong>3 niveaux de risque</strong> (Prudent, Neutre, Agressif).</p>
+      <p>Il analyse en temps réel les données de marché provenant de <strong>plusieurs sources</strong> (Finnhub, Twelve Data, Alpha Vantage) pour générer des signaux d'achat et de vente.</p>
+    </div>
+
+    <div class="card">
+      <h3>🌐 Les API qui alimentent le bot</h3>
+      <p>Notre bot s'appuie sur des API de données financières de qualité professionnelle, qui lui permettent d'avoir une vision complète et à jour des marchés :</p>
+      <ul>
+        <li><strong>Finnhub</strong> : Données en temps réel (actions, forex, crypto).</li>
+        <li><strong>Twelve Data</strong> : Données historiques et de marché (actions, indices).</li>
+        <li><strong>Alpha Vantage</strong> : Données fondamentales et historiques (backup).</li>
+        <li><strong>Fincept</strong> : Backup ultime pour garantir la continuité du service.</li>
+      </ul>
+      <p>Cette architecture en cascade garantit <strong>une disponibilité quasi-totale</strong> et une fiabilité maximale.</p>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION INVESTIR ==================== -->
+  <section id="investir">
+    <h2>💼 Investir</h2>
+
+    <div class="card">
+      <h3>📋 Formules disponibles</h3>
+      <ul>
+        <li><strong>Abonnement mensuel :</strong> 5 € / mois (accès au bot et aux briefings).</li>
+        <li><strong>Commission :</strong> 20 % sur les gains (prélevée automatiquement).</li>
+        <li><strong>Investissement minimum :</strong> 100 €.</li>
+        <li><strong>Retrait :</strong> 1 fois par mois (pour préserver la qualité du trading).</li>
+      </ul>
+    </div>
+
+    <div style="text-align: center;">
+      <a href="#" class="btn">💼 Investir dès 100 €</a>
+      <p style="font-size: 14px; color: #888;">Sans engagement, retrait mensuel</p>
+    </div>
+  </section>
+
+  <!-- ==================== SECTION TRANSPARENCE ==================== -->
+  <section id="transparence">
+    <h2>🔍 Transparence</h2>
+
+    <div class="card">
+      <h4>🤖 Le bot</h4>
+      <p>Le bot est un système automatisé qui exécute des trades selon des règles mathématiques prédéfinies. Il ne prend pas de décisions émotionnelles et ne dort jamais.</p>
+      <p>Il suit en parallèle <strong>18 combinaisons de stratégies et de risques</strong> pour diversifier les approches et maximiser les chances de performance.</p>
+    </div>
+
+    <div class="card">
+      <h4>💰 L'argent</h4>
+      <p>Les fonds sont placés sur un compte <strong>Interactive Brokers</strong> (ou en portefeuille virtuel pendant la phase de test). Chaque mouvement est enregistré et peut être vérifié.</p>
+    </div>
+
+    <div class="card">
+      <h4>📊 Les performances</h4>
+      <p>Les performances sont calculées sur la base des résultats réels du bot. Un rapport détaillé est envoyé chaque mois aux investisseurs.</p>
+    </div>
+
+    <div class="card">
+      <h4>⚖️ Les risques</h4>
+      <p>Le trading comporte des risques de perte en capital. Nous recommandons de n'investir que ce que vous pouvez perdre. Le bot est conçu pour limiter les pertes grâce à un <strong>circuit breaker</strong> (arrêt automatique en cas de perte de 10%).</p>
+    </div>
+
+    <div class="card">
+      <h4>📋 Frais et conditions</h4>
+      <ul>
+        <li><strong>Abonnement :</strong> 5 € / mois</li>
+        <li><strong>Commission :</strong> 20 % sur les gains</li>
+        <li><strong>Retrait :</strong> 1 fois par mois (pour préserver la qualité du trading)</li>
+        <li><strong>Investissement minimum :</strong> 100 €</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ==================== LIENS ET PIED DE PAGE ==================== -->
   <div class="links">
     <a href="https://t.me/mon_bobot_trading_bot" target="_blank">📱 Telegram</a>
     <a href="mailto:jmsarret9@gmail.com">📧 Email</a>
@@ -224,6 +313,39 @@
   </div>
 
 </div>
+
+<!-- ==================== JAVASCRIPT : PERFORMANCES EN TEMPS RÉEL ==================== -->
+<script>
+  function updatePerformance() {
+    fetch('http://localhost:8000/performance.json')
+      .then(response => response.json())
+      .then(data => {
+        const gain = data.gain || 0;
+        const drawdown = data.drawdown || 0;
+        const lastUpdate = data.last_update || '--';
+        const gainDisplay = gain.toFixed(1);
+
+        // Mettre à jour les éléments
+        document.getElementById('real-gain').innerHTML = gainDisplay + '% <span class="italique">(Livret A 2026 : 3%)</span>';
+        document.getElementById('bar-gain').textContent = gainDisplay;
+        document.getElementById('perf-gain').textContent = gainDisplay + '%';
+        document.getElementById('update-time').textContent = lastUpdate;
+
+        // Comparaison avec Livret A
+        const diff = gain - 3;
+        const diffDisplay = diff.toFixed(1);
+        document.getElementById('comparison-text').innerHTML = '🔥 Le bot surpasse le Livret A de <strong>' + diffDisplay + ' points</strong>';
+      })
+      .catch(error => {
+        console.log('⏳ En attente des données du bot...');
+        document.getElementById('update-time').textContent = 'En attente...';
+      });
+  }
+
+  // Mise à jour toutes les 30 secondes
+  updatePerformance();
+  setInterval(updatePerformance, 30000);
+</script>
 
 </body>
 </html>
